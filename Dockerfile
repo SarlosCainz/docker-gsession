@@ -1,19 +1,18 @@
-FROM tomcat:8.5-jre11
+FROM tomcat:9.0.56-jre11-temurin
 MAINTAINER m-takuj@sarlos.jp
 
-ENV VERSION=4.9.3
+ENV VERSION=5.1.3
 
-WORKDIR /tmp
 RUN set -ex \
- && curl -LsO http://dl1.gs.sjts.co.jp/v4/download/files/${VERSION}/gsession.zip \
- && unzip -q gsession.zip -d /usr/local/tomcat/webapps/gsession/ \
- && rm gsession.zip
+ && apt-get update \
+ && apt-get install -y unzip \
+ && apt-get clean
 
 WORKDIR /usr/local/tomcat/webapps
-RUN rm -r docs examples host-manager manager
+RUN set -ex \
+ && curl -LO https://www.sjts.co.jp/download/gs/${VERSION}/gsession.zip \
+ && unzip -q gsession.zip -d ./gsession/ \
+ && rm gsession.zip
 
-COPY index.html ROOT/
-
-EXPOSE 8080
 VOLUME /usr/local/tomcat/webapps/gsession/WEB-INF/backup
 VOLUME /usr/local/tomcat/webapps/gsession/WEB-INF/filekanri
