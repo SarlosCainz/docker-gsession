@@ -1,12 +1,12 @@
 NAME := gsession
 REGISTRY := sarlos
-TAG := 5.3.3
+TAG := 5.4.0
+
+IMAGE := $(REGISTRY)/$(NAME):$(TAG)
+PLATFORM := linux/amd64,linux/arm64,linux/arm/v7
 
 build:
-	docker build -t $(REGISTRY)/$(NAME):$(TAG)  .
-
-push:
-	docker push $(REGISTRY)/$(NAME):$(TAG)
+	docker buildx build --platform $(PLATFORM) -t $(IMAGE) --push --progress plain .
 
 clean:
 	docker system prune -f
