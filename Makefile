@@ -1,6 +1,6 @@
 NAME := gsession
 REGISTRY := sarlos
-TAG := 5.1.3
+TAG := 5.3.3
 
 build:
 	docker build -t $(REGISTRY)/$(NAME):$(TAG)  .

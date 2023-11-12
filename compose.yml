@@ -1,7 +1,7 @@
 version: '2'
 services:
   gsession:
-    image: sarlos/gsession:5.1.3
+    image: sarlos/gsession:5.3.3
     ports:
       - 8080:8080
     volumes:
